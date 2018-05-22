@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LecturePractice5</string>
+    <string name="select_image">Select Image</string>
+    <string name="upload">Upload</string>
+    <string name="nextActivity">Image Upload Activity</string>
+    <string name="findAnswer">Find Sum</string>
 </resources>

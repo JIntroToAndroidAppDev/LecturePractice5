@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-public class HttpRequestMakingClass implements Callable<String> {
+public class HttpRequestMakingClassPlainText implements Callable<String> {
     private final HashMap<String,String> requestBody;
     private final String URL;
     private static final String charset = StandardCharsets.UTF_8.name();
 
 
-    public HttpRequestMakingClass(HashMap<String, String> requestBody, String url) {
+    public HttpRequestMakingClassPlainText(HashMap<String, String> requestBody, String url) {
         this.requestBody = requestBody;
         URL = url;
     }

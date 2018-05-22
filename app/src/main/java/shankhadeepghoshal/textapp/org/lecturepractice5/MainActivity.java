@@ -1,12 +1,12 @@
 package shankhadeepghoshal.textapp.org.lecturepractice5;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -15,11 +15,12 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String webAddress = "http://127.0.0.17:8080/AndroidProgramming/Teaching/IT2015/Addition"; // make your own REST endpoint
+    private static final String webAddress = "http://10.0.2.2:8080/AndroidProgramming/Teaching/IT2015/Addition"; // make your own REST endpoint
 
     private EditText number1;
     private EditText number2;
     private Button calculateButton;
+    private Button toImgActBtn;
     private ExecutorService service;
 
     @Override
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.service = Executors.newSingleThreadExecutor();
         this.calculateButton = findViewById(R.id.button);
+        this.toImgActBtn = findViewById(R.id.toImgAct);
     }
 
     /**
@@ -46,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        toImgActBtn.setOnClickListener((view -> {
+            Intent intent = new Intent(this,ImageUploadActivity.class);
+            startActivity(intent);
+        }));
+
         calculateButton.setOnClickListener((view) -> {
             String number1 = this.number1.getText().toString();
             String number2 = this.number2.getText().toString();
@@ -54,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             requestBody.put("NumberOne",number1);
             requestBody.put("NumberTwo",number2);
 
-            HttpRequestMakingClass requestMakingClass = new HttpRequestMakingClass(requestBody,webAddress);
+            HttpRequestMakingClassPlainText requestMakingClass = new HttpRequestMakingClassPlainText(requestBody,webAddress);
             try {
                 String answer = this.service.submit(requestMakingClass).get();
                 Toast.makeText(getApplicationContext(),answer,Toast.LENGTH_LONG).show();
